@@ -1,11 +1,18 @@
 using ECommerceAPI.Persistence;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddPersistenceServices();
-
+builder.Services.AddCors(Options =>
+{
+    Options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("https://localhost:4200/", "http://localhost:4200/").AllowAnyHeader().AllowAnyOrigin();
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -20,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
