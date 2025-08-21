@@ -27,6 +27,7 @@ namespace ECommerceAPI.Persistence.Contexts
                 {
                     EntityState.Added => data.Entity.createdDate = DateTime.UtcNow,
                     EntityState.Modified => data.Entity.updatedTime = DateTime.UtcNow,
+                    _ => DateTime.UtcNow,
                 };
                 
 
